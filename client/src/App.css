@@ -1,0 +1,11 @@
+.app-container {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding: 30px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}

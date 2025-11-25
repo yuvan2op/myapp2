@@ -1,11 +1,28 @@
-version: "3"
-
 services:
+  mongodb:
+    image: mongo:7
+    container_name: myapp2-mongodb
+    environment:
+      MONGO_INITDB_DATABASE: myapp2
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - myapp2-network
+    restart: always
+
   server:
     build: ./server
     container_name: myapp2-server
     ports:
       - "3000:3000"
+    environment:
+      MONGODB_URI: mongodb://mongodb:27017/myapp2
+      PORT: 3000
+      NODE_ENV: production
+    depends_on:
+      - mongodb
+    networks:
+      - myapp2-network
     restart: always
 
   client:
@@ -13,4 +30,15 @@ services:
     container_name: myapp2-client
     ports:
       - "80:80"
+    depends_on:
+      - server
+    networks:
+      - myapp2-network
     restart: always
+
+networks:
+  myapp2-network:
+    driver: bridge
+
+volumes:
+  mongodb_data:

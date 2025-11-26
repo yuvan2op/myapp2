@@ -1,18 +1,4 @@
 services:
-  jenkins:
-    image: jenkins/jenkins:lts
-    container_name: myapp2-jenkins
-    ports:
-      - "8080:8080"
-      - "50000:50000"
-    environment:
-      JENKINS_OPTS: "--httpPort=8080"
-    volumes:
-      - jenkins_data:/var/jenkins_home
-      - /var/run/docker.sock:/var/run/docker.sock
-    networks:
-      - myapp2-network
-    restart: always
 
   mongodb:
     image: mongo:7
@@ -57,4 +43,3 @@ networks:
 
 volumes:
   mongodb_data:
-  jenkins_data:
